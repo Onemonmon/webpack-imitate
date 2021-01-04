@@ -8,7 +8,7 @@ const path = require("path");
 /**
  * @babel
  *  1. @babel/parser: 解析js代码，生成AST抽象语法树
- *  2. @babel/traverse: 对AST进行遍历操作
+ *  2. @babel/traverse: 对AST的特定节点（参考@babel/types）进行遍历操作
  *  3. @babel/types: 解析AST各个节点的类型
  *  4. @babel/generator: 将AST转换成js代码
  */
@@ -59,6 +59,7 @@ class Compiler {
   run() {
     const info = this.build(this.entry);
     this.modules.push(info);
+    // 获取入口文件的依赖
     const { dependencies } = info;
     // 递归生成依赖
     this.recursion(dependencies);
